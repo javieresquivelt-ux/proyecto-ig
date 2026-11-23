@@ -50,8 +50,13 @@ python3 -m venv env
 source env/bin/activate
 pip install -r requeriments.txt
 python manage.py migrate
+python manage.py createsuperuser   # opcional: para acceder al admin
 python manage.py runserver
 ```
+
+> Notas:
+> - `createsuperuser` pide **email** (no username), ya que el login es por email.
+> - Las traducciones (`locale/es/`) ya vienen compiladas en el repo (`django.mo`). Si editas `django.po`, recompila con `python manage.py compilemessages` (requiere `gettext` instalado).
 
 ## Variables de entorno (opcionales)
 
