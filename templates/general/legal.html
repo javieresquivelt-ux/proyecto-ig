@@ -1,0 +1,22 @@
+{% extends "general/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Legal Notice" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-3">{% trans "Legal Notice (Educational Project)" %}</h2>
+                    <p class="mb-0">
+                        {% trans "This application is a prototype developed solely for academic purposes and technical demonstration. It has no commercial purposes and is not affiliated, endorsed or associated with Instagram or Meta Platforms, Inc. Please do not use real passwords or upload confidential information, as the data in this environment is fictitious and may be periodically deleted." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "general/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <h2>{% trans "Home" %}</h2>
+
+    {% if posts %}
+        <div id="post-grid">
+            {% include 'posts/_post_grid.html' with posts=posts %}
+        </div>
+        {% if page_obj.has_next %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-primary js-load-more"
+                    data-url="{% url 'home_feed_page' %}"
+                    data-page="{{ page_obj.next_page_number }}"
+                    data-target="post-grid">
+                    {% trans "Load more" %}
+                </button>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="text-center mt-5">
+            <p class="text-muted">{% trans "You're not following anyone yet. Follow people to see their posts here." %}</p>
+            <a href="{% url 'user_list' %}" class="btn btn-primary">{% trans "Discover users" %}</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

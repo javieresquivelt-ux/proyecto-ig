@@ -1,0 +1,10 @@
+<div class="d-flex gap-2 js-likebox">
+    <button type="button" class="btn btn-sm js-like {% if post.pk in liked_post_ids %}btn-primary{% else %}btn-outline-primary{% endif %}"
+        data-url="{% url 'post_like' post.pk %}" data-active="btn-primary" data-inactive="btn-outline-primary">
+        👍<span class="count">{% if post.likes.count %} {{ post.likes.count }}{% endif %}</span>
+    </button>
+    <button type="button" class="btn btn-sm js-dislike {% if post.pk in disliked_post_ids %}btn-dark{% else %}btn-outline-dark{% endif %}"
+        data-url="{% url 'post_dislike' post.pk %}" data-active="btn-dark" data-inactive="btn-outline-dark">
+        👎<span class="count">{% if post.dislikes.count %} {{ post.dislikes.count }}{% endif %}</span>
+    </button>
+</div>

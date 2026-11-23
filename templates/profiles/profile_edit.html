@@ -1,0 +1,27 @@
+{% extends "general/layout.html" %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% trans "Edit Profile" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-4">{% trans "Edit Profile" %}</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

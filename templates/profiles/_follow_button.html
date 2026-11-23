@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if profile.user != request.user and profile.user.pk not in following_ids %}
+<form method="post" action="{% url 'follow_toggle' profile.pk %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" class="btn btn-sm btn-primary">{% trans "Follow" %}</button>
+</form>
+{% endif %}

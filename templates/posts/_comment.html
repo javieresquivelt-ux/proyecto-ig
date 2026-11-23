@@ -1,0 +1,47 @@
+{% load i18n %}
+<div class="d-flex gap-2 mb-3">
+    {% if comment.user.profile.profile_picture %}
+        <img src="{{ comment.user.profile.profile_picture.url }}" class="avatar" alt="avatar">
+    {% else %}
+        <span class="avatar"></span>
+    {% endif %}
+    <div class="flex-grow-1">
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <div class="flex-grow-1">
+                <strong>{{ comment.user.display_name }}</strong>
+                <span class="text-muted small">{{ comment.created_at|date:"d/m/Y H:i" }}</span>
+            </div>
+            {% if comment.user.profile %}
+                {% include 'profiles/_follow_button.html' with profile=comment.user.profile %}
+            {% endif %}
+        </div>
+        <p class="mb-1">{{ comment.content }}</p>
+        <div class="d-flex gap-3">
+            <div class="d-flex gap-2 js-likebox">
+                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none js-like {% if comment.pk in liked_comment_ids %}text-primary{% else %}text-muted{% endif %}"
+                    data-url="{% url 'comment_like' comment.pk %}" data-active="text-primary" data-inactive="text-muted">
+                    👍<span class="count">{% if comment.likes.count %} {{ comment.likes.count }}{% endif %}</span>
+                </button>
+                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none js-dislike {% if comment.pk in disliked_comment_ids %}text-primary{% else %}text-muted{% endif %}"
+                    data-url="{% url 'comment_dislike' comment.pk %}" data-active="text-primary" data-inactive="text-muted">
+                    👎<span class="count">{% if comment.dislikes.count %} {{ comment.dislikes.count }}{% endif %}</span>
+                </button>
+            </div>
+            <button class="btn btn-link btn-sm p-0 text-muted text-decoration-none" data-bs-toggle="collapse" data-bs-target="#reply-{{ comment.pk }}">{% trans "Reply" %}</button>
+        </div>
+        <div class="collapse mt-2" id="reply-{{ comment.pk }}">
+            <form method="post" action="{% url 'comment_reply' comment.pk %}">
+                {% csrf_token %}
+                <textarea name="content" rows="2" class="form-control" placeholder="{% trans 'Write a reply...' %}"></textarea>
+                <button type="submit" class="btn btn-sm btn-primary mt-2">{% trans "Reply" %}</button>
+            </form>
+        </div>
+        {% if comment.replies.all %}
+            <div class="ms-4 mt-2 border-start ps-3">
+                {% for reply in comment.replies.all %}
+                    {% include 'posts/_comment.html' with comment=reply %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

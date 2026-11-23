@@ -1,0 +1,30 @@
+{% extends "general/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Notifications" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h2>{% trans "Notifications" %}</h2>
+            {% if notifications %}
+                <ul class="list-group">
+                    {% for notification in notifications %}
+                        <li class="list-group-item">
+                            <p class="mb-1">{{ notification.get_message }}</p>
+                            <p class="text-muted small mb-0">{{ notification.created_at|date:"d/m/Y H:i" }}</p>
+                            {% if notification.post %}
+                                <a href="{% url 'post_detail' notification.post.pk %}" class="btn btn-sm btn-outline-primary mt-1">{% trans "View post" %}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">{% trans "No notifications yet." %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

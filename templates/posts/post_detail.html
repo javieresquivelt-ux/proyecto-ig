@@ -1,0 +1,60 @@
+{% extends "general/layout.html" %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% trans "Post" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top post-image" alt="Post image">
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" class="avatar" alt="avatar">
+                        {% else %}
+                            <span class="avatar"></span>
+                        {% endif %}
+                        <div class="flex-grow-1">
+                            <p class="mb-0 small"><strong>{{ post.user.display_name }}</strong></p>
+                            <p class="text-muted small mb-0">{{ post.created_at|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        {% if post.user.profile %}
+                            {% include 'profiles/_follow_button.html' with profile=post.user.profile %}
+                        {% endif %}
+                    </div>
+                    <p class="card-text mb-2">{{ post.caption }}</p>
+                    {% include 'posts/_like_buttons.html' with post=post %}
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h5 class="mb-3">{% trans "Comments" %} ({{ total_comments }})</h5>
+                    {% for comment in comments %}
+                        {% include 'posts/_comment.html' with comment=comment %}
+                        {% if not forloop.last %}<hr>{% endif %}
+                    {% empty %}
+                        <p class="text-muted mb-0">{% trans "No comments yet." %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="mb-3">{% trans "Add a comment" %}</h5>
+                    <form method="post" action="{% url 'post_comment' post.pk %}">
+                        {% csrf_token %}
+                        {{ comment_form|crispy }}
+                        <button type="submit" class="btn btn-primary w-100">{% trans "Comment" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

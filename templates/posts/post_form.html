@@ -1,0 +1,24 @@
+{% extends "general/layout.html" %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% trans "New Post" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-4">{% trans "New post" %}</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary w-100 mt-2">{% trans "Publish" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,303 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: instagram\n"
+"Language: es\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Posts"
+msgstr "Publicaciones"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "My profile"
+msgstr "Mi perfil"
+
+msgid "Hi"
+msgstr "Hola"
+
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+msgid "Login"
+msgstr "Iniciar sesión"
+
+msgid "Register"
+msgstr "Registrarse"
+
+msgid "All rights reserved."
+msgstr "Todos los derechos reservados."
+
+msgid "Legal Notice"
+msgstr "Aviso Legal"
+
+msgid "comments"
+msgstr "comentarios"
+
+msgid "View post"
+msgstr "Ver publicación"
+
+msgid "You're not following anyone yet. Follow people to see their posts here."
+msgstr "Aún no sigues a nadie. Sigue a personas para ver sus publicaciones aquí."
+
+msgid "Discover users"
+msgstr "Descubrir usuarios"
+
+msgid "Login Page"
+msgstr "Página de inicio de sesión"
+
+msgid "Register Page"
+msgstr "Página de registro"
+
+msgid "Send message"
+msgstr "Enviar mensaje"
+
+msgid "Legal Notice (Educational Project)"
+msgstr "Aviso Legal (Proyecto Educativo)"
+
+msgid "This application is a prototype developed solely for academic purposes and technical demonstration. It has no commercial purposes and is not affiliated, endorsed or associated with Instagram or Meta Platforms, Inc. Please do not use real passwords or upload confidential information, as the data in this environment is fictitious and may be periodically deleted."
+msgstr "Esta aplicación es un prototipo desarrollado únicamente con fines académicos y de demostración técnica. No tiene fines comerciales ni está afiliada, respaldada o asociada con Instagram o Meta Platforms, Inc. Por favor, no utilice contraseñas reales ni suba información confidencial, ya que los datos de este entorno son ficticios y pueden ser eliminados periódicamente."
+
+msgid "No notifications yet."
+msgstr "Aún no hay notificaciones."
+
+msgid "New Post"
+msgstr "Nueva publicación"
+
+msgid "New post"
+msgstr "Nueva publicación"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Reply"
+msgstr "Responder"
+
+msgid "Write a reply..."
+msgstr "Escribe una respuesta..."
+
+msgid "Follow"
+msgstr "Seguir"
+
+msgid "Unfollow"
+msgstr "Dejar de seguir"
+
+msgid "Post"
+msgstr "Publicación"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "No comments yet."
+msgstr "Aún no hay comentarios."
+
+msgid "Add a comment"
+msgstr "Añadir un comentario"
+
+msgid "Comment"
+msgstr "Comentar"
+
+msgid "No posts yet."
+msgstr "Aún no hay publicaciones."
+
+msgid "My Profile"
+msgstr "Mi perfil"
+
+msgid "No photo"
+msgstr "Sin foto"
+
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+msgid "followers"
+msgstr "seguidores"
+
+msgid "following"
+msgstr "siguiendo"
+
+msgid "Name:"
+msgstr "Nombre:"
+
+msgid "Bio:"
+msgstr "Biografía:"
+
+msgid "Location:"
+msgstr "Ubicación:"
+
+msgid "Birth date:"
+msgstr "Fecha de nacimiento:"
+
+msgid "Followers"
+msgstr "Seguidores"
+
+msgid "View profile"
+msgstr "Ver perfil"
+
+msgid "You have no followers yet."
+msgstr "Aún no tienes seguidores."
+
+msgid "Following"
+msgstr "Siguiendo"
+
+msgid "You are not following anyone yet."
+msgstr "Aún no sigues a nadie."
+
+msgid "My posts"
+msgstr "Mis publicaciones"
+
+msgid "likes"
+msgstr "me gusta"
+
+msgid "dislikes"
+msgstr "no me gusta"
+
+msgid "You haven't posted anything yet."
+msgstr "Aún no has publicado nada."
+
+msgid "My comments"
+msgstr "Mis comentarios"
+
+msgid "On post by"
+msgstr "En la publicación de"
+
+msgid "You haven't commented on any post yet."
+msgstr "Aún no has comentado en ninguna publicación."
+
+msgid "Edit Profile"
+msgstr "Editar perfil"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "This user hasn't posted anything yet."
+msgstr "Este usuario aún no ha publicado nada."
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Subject"
+msgstr "Asunto"
+
+msgid "Message"
+msgstr "Mensaje"
+
+msgid "General question"
+msgstr "Pregunta general"
+
+msgid "Account and privacy"
+msgstr "Cuenta y privacidad"
+
+msgid "Report a problem"
+msgstr "Reportar un problema"
+
+msgid "Press and media"
+msgstr "Prensa y medios"
+
+msgid "Partnership"
+msgstr "Colaboración"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+msgid "Bio"
+msgstr "Biografía"
+
+msgid "Birth date"
+msgstr "Fecha de nacimiento"
+
+msgid "Add a comment..."
+msgstr "Añade un comentario..."
+
+msgid "Profile picture"
+msgstr "Imagen de perfil"
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "User profile"
+msgstr "Perfil de usuario"
+
+msgid "User profiles"
+msgstr "Perfiles de usuario"
+
+msgid "Follower"
+msgstr "Seguidor"
+
+msgid "Follow date"
+msgstr "Fecha de seguimiento"
+
+msgid "Follows"
+msgstr "Seguidores"
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Caption"
+msgstr "Descripción"
+
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+msgid "Like"
+msgstr "Me gusta"
+
+msgid "Likes"
+msgstr "Me gusta"
+
+msgid "Content"
+msgstr "Contenido"
+
+msgid "email"
+msgstr "correo electrónico"
+
+msgid "Notification"
+msgstr "Notificación"
+
+msgid "Thanks! Your message has been sent."
+msgstr "¡Gracias! Tu mensaje ha sido enviado."
+
+msgid "Profile updated successfully."
+msgstr "Perfil actualizado correctamente."
+
+msgid "Post published!"
+msgstr "¡Publicación publicada!"
+
+msgid "comment"
+msgstr "comentario"
+
+msgid "post"
+msgstr "publicación"
+
+msgid "%(actor)s liked your %(target)s"
+msgstr "%(actor)s le gustó tu %(target)s"
+
+msgid "%(actor)s disliked your %(target)s"
+msgstr "%(actor)s no le gustó tu %(target)s"
+
+msgid "%(actor)s commented on your post"
+msgstr "%(actor)s comentó en tu publicación"
+
+msgid "%(actor)s replied to your comment"
+msgstr "%(actor)s respondió a tu comentario"
+
+msgid "Load more"
+msgstr "Cargar más"

@@ -1,0 +1,34 @@
+{% load i18n %}
+<div class="row justify-content-center">
+    {% for post in posts %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" class="avatar" alt="avatar">
+                        {% else %}
+                            <span class="avatar"></span>
+                        {% endif %}
+                        <div class="flex-grow-1">
+                            <p class="mb-0 small"><strong>{{ post.user.display_name }}</strong></p>
+                            <p class="text-muted small mb-0">{{ post.created_at|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        {% if post.user.profile %}
+                            {% include 'profiles/_follow_button.html' with profile=post.user.profile %}
+                        {% endif %}
+                    </div>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="post-image mb-2" alt="Post image">
+                    {% endif %}
+                    <p class="card-text mb-1">{{ post.caption }}</p>
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        {% include 'posts/_like_buttons.html' with post=post %}
+                        <span class="text-muted small">{{ post.comments.count }} {% trans "comments" %}</span>
+                    </div>
+                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-sm btn-outline-primary">{% trans "View post" %}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

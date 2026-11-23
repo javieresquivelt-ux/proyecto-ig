@@ -1,0 +1,32 @@
+{% extends "general/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Posts" %}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2>{% trans "Posts" %}</h2>
+        <a href="{% url 'post_create' %}" class="btn btn-primary">{% trans "New post" %}</a>
+    </div>
+
+    {% if posts %}
+        <div id="post-grid">
+            {% include 'posts/_post_grid.html' with posts=posts %}
+        </div>
+        {% if page_obj.has_next %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-primary js-load-more"
+                    data-url="{% url 'post_list_page' %}"
+                    data-page="{{ page_obj.next_page_number }}"
+                    data-target="post-grid">
+                    {% trans "Load more" %}
+                </button>
+            </div>
+        {% endif %}
+    {% else %}
+        <p class="text-muted">{% trans "No posts yet." %}</p>
+    {% endif %}
+</div>
+{% endblock %}

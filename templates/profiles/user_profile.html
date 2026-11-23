@@ -1,0 +1,71 @@
+{% extends "general/layout.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ profile.user.display_name }}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-4 text-center">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" class="rounded-circle img-fluid mb-3" width="150" height="150" alt="Profile photo">
+            {% else %}
+                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px;">
+                    <span class="text-muted">{% trans "No photo" %}</span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="mb-0">{{ profile.user.display_name }}</h3>
+                {% if is_self %}
+                    <a href="{% url 'profile' %}" class="btn btn-outline-primary btn-sm">{% trans "My profile" %}</a>
+                {% else %}
+                    <form method="post" action="{% url 'follow_toggle' profile.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type="submit" class="btn btn-sm {% if is_following %}btn-outline-secondary{% else %}btn-primary{% endif %}">
+                            {% if is_following %}{% trans "Unfollow" %}{% else %}{% trans "Follow" %}{% endif %}
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+            <p class="text-muted mb-3">
+                <strong>{{ profile.followers.count }}</strong> {% trans "followers" %}
+                ·
+                <strong>{{ profile.following.count }}</strong> {% trans "following" %}
+            </p>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="mb-2"><strong>{% trans "Name:" %}</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+                    <p class="mb-2"><strong>{% trans "Bio:" %}</strong> {{ profile.bio|default:"—" }}</p>
+                    <p class="mb-2"><strong>{% trans "Location:" %}</strong> {{ profile.location|default:"—" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-5 mb-3">{% trans "Posts" %} ({{ posts.count }})</h3>
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="card-img-top post-image" alt="Post image">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text mb-1">{{ post.caption }}</p>
+                            <p class="text-muted small mb-2">{{ post.created_at|date:"d/m/Y H:i" }}</p>
+                            <a href="{% url 'post_detail' post.pk %}" class="btn btn-sm btn-outline-primary">{% trans "View post" %}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">{% trans "This user hasn't posted anything yet." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
