@@ -21,6 +21,103 @@ del máster de desarrollo fullstack de Conquer Blocks.
 | `posts` | `Post` (con likes/dislikes), `Like`, `Comment` (con respuestas, likes y dislikes) |
 | `notifications` | `Notification` (destinatario, actor, tipo, leída) |
 
+## Arquitectura de la aplicación
+
+```mermaid
+flowchart TB
+    Browser["Navegador<br/>(HTML + Bootstrap 5 + JS/AJAX)"]
+
+    subgraph VPS["VPS Hostinger · Ubuntu 24.04"]
+        Gunicorn["Gunicorn (WSGI)<br/>puerto 8000 · 3 workers"]
+
+        subgraph Django["Django 6.1"]
+            Apps["Apps: users · profiles · posts · notifications"]
+            Templates["Templates + crispy-forms + i18n (EN/ES)"]
+        end
+
+        SQLite[("SQLite<br/>(db.sqlite3)")]
+        Static["Estáticos: whitenoise<br/>(collectstatic)"]
+        Media["Media: imágenes subidas<br/>(posts / perfiles)"]
+    end
+
+    Browser -- "HTTP :8000" --> Gunicorn
+    Gunicorn --> Django
+    Django --> SQLite
+    Django -- "sirve" --> Static
+    Django -- "sirve" --> Media
+    Static -- "CSS/JS" --> Browser
+    Media -- "imágenes" --> Browser
+```
+
+## Modelo Entidad/Relación (Base de Datos)
+
+```mermaid
+erDiagram
+    USER ||--|| USERPROFILE : "tiene (1:1)"
+    USER ||--o{ POST : "publica"
+    USER ||--o{ LIKE : "da like"
+    POST ||--o{ LIKE : "recibe"
+    USER ||--o{ COMMENT : "comenta"
+    POST ||--o{ COMMENT : "tiene"
+    COMMENT ||--o{ COMMENT : "responde (parent)"
+    USERPROFILE ||--o{ FOLLOW : "sigue (follower)"
+    USERPROFILE ||--o{ FOLLOW : "es seguido (following)"
+    USER ||--o{ NOTIFICATION : "recibe (recipient)"
+    USER ||--o{ NOTIFICATION : "actúa (actor)"
+    POST ||--o{ NOTIFICATION : "referencia"
+    COMMENT ||--o{ NOTIFICATION : "referencia"
+
+    USER {
+        int id PK
+        string email UK
+        string first_name
+        string last_name
+        string password
+        bool is_staff
+        bool is_superuser
+    }
+
+    USERPROFILE {
+        int id PK
+        string profile_picture
+        string bio
+        string location
+        date birth_date
+    }
+
+    FOLLOW {
+        int id PK
+        datetime created_at
+    }
+
+    POST {
+        int id PK
+        string image
+        string caption
+        datetime created_at
+    }
+
+    LIKE {
+        int id PK
+        datetime created_at
+    }
+
+    COMMENT {
+        int id PK
+        string content
+        datetime created_at
+    }
+
+    NOTIFICATION {
+        int id PK
+        string notification_type
+        bool is_read
+        datetime created_at
+    }
+```
+
+> Nota: además existen relaciones ManyToMany implícitas (tablas intermedias generadas por Django, sin modelo propio): `Post.dislikes`, `Comment.likes` y `Comment.dislikes` (todas hacia `User`).
+
 ## Funcionalidades implementadas
 
 - Registro (`UserCreationForm`, contraseña hasheada), login por email y logout.
@@ -66,6 +163,16 @@ python manage.py test
 ```
 
 Los tests unitarios cubren users, profiles, posts y notifications, y se ejecutan contra una base de datos de prueba desechable (no tocan `db.sqlite3`).
+
+## Despliegue en producción (VPS)
+
+- **Servidor WSGI:** gunicorn (3 workers) en el puerto `8000`.
+- **Estáticos:** whitenoise (`collectstatic` → `staticfiles/`).
+- **Proceso:** unidad systemd `proyecto-ig.service` (`/etc/systemd/system/`), con `EnvironmentFile=/opt/proyecto-ig/.env`.
+- **Variables de entorno:** `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`.
+- **Acceso:** `http://<dominio>:8000` o `http://<IP>:8000`.
+
+> Limitaciones: el acceso es HTTP plano (sin TLS). Los archivos `media/` (imágenes subidas) se sirven mediante Django (`django.views.static.serve`), válido para un proyecto educativo de bajo tráfico.
 
 ## Variables de entorno (opcionales)
 
