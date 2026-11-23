@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import include, path
 
 from notifications.views import NotificationListView
-from posts.views import CommentDislikeView, CommentLikeView, CommentReplyView, HomeFeedPageView, PostCommentView, PostCreateView, PostDetailView, PostDislikeView, PostLikeView, PostListPageView, PostListView
+from posts.views import CommentDislikeView, CommentLikeView, CommentReplyView, HomeFeedPageView, PostCommentView, PostCreateView, PostDeleteView, PostDetailView, PostDislikeView, PostLikeView, PostListPageView, PostListView, PostUpdateView
 from profiles.views import FollowToggleView, ProfileEditView, ProfileView, UserListView, UserProfileView
 
 from .views import HomeView, LoginView, RegisterView, LegalView, ContactView
@@ -27,6 +27,8 @@ urlpatterns = [
     path('posts/page/', PostListPageView.as_view(), name='post_list_page'),
     path('posts/new/', PostCreateView.as_view(), name='post_create'),
     path('posts/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'),
+    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
     path('posts/<int:pk>/like/', PostLikeView.as_view(), name='post_like'),
     path('posts/<int:pk>/dislike/', PostDislikeView.as_view(), name='post_dislike'),
     path('posts/<int:pk>/comment/', PostCommentView.as_view(), name='post_comment'),

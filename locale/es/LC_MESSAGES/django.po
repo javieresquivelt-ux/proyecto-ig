@@ -301,3 +301,24 @@ msgstr "%(actor)s respondió a tu comentario"
 
 msgid "Load more"
 msgstr "Cargar más"
+
+msgid "Edit Post"
+msgstr "Editar publicación"
+
+msgid "Edit post"
+msgstr "Editar publicación"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Delete post"
+msgstr "Eliminar publicación"
+
+msgid "Are you sure you want to delete this post?"
+msgstr "¿Seguro que quieres eliminar esta publicación?"
+
+msgid "Post updated successfully."
+msgstr "Publicación actualizada correctamente."
+
+msgid "Post deleted."
+msgstr "Publicación eliminada."

@@ -29,6 +29,12 @@
                     </div>
                     <p class="card-text mb-2">{{ post.caption }}</p>
                     {% include 'posts/_like_buttons.html' with post=post %}
+                    {% if is_author %}
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{% url 'post_edit' post.pk %}" class="btn btn-sm btn-outline-primary">{% trans "Edit" %}</a>
+                            <a href="{% url 'post_delete' post.pk %}" class="btn btn-sm btn-outline-danger">{% trans "Delete" %}</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 

@@ -1,13 +1,13 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views import View
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from notifications.utils import create_notification
 from profiles.models import UserProfile
@@ -49,6 +49,37 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/post_form.html'
+
+    def test_func(self):
+        return self.get_object().user == self.request.user
+
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Post updated successfully.'))
+        return super().form_valid(form)
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = 'posts/post_confirm_delete.html'
+    success_url = reverse_lazy('post_list')
+
+    def test_func(self):
+        return self.get_object().user == self.request.user
+
+    def form_valid(self, form):
+        if self.object.image:
+            self.object.image.delete(save=False)
+        messages.success(self.request, _('Post deleted.'))
+        return super().form_valid(form)
+
+
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
@@ -56,6 +87,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_author'] = self.object.user == self.request.user
         all_comments = self.object.comments.all()
         context['comments'] = all_comments.filter(parent=None)
         context['total_comments'] = all_comments.count()
