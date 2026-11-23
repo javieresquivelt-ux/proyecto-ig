@@ -26,6 +26,7 @@ del máster de desarrollo fullstack de Conquer Blocks.
 - Registro (`UserCreationForm`, contraseña hasheada), login por email y logout.
 - Home = feed de posts de cuentas seguidas (estado vacío con CTA si no sigues a nadie).
 - Publicar posts con imagen; listado, detalle y grid en el perfil.
+- Editar y eliminar publicaciones propias (solo el autor, desde el detalle).
 - Interacciones: like/dislike (👍/👎) en posts y comentarios, accesibles desde el feed y el detalle; comentarios con respuestas anidadas.
 - Likes/dislikes vía AJAX (sin recarga de página).
 - Carga asincrónica de publicaciones (botón "Cargar más" en el feed).
@@ -57,6 +58,14 @@ python manage.py runserver
 > Notas:
 > - `createsuperuser` pide **email** (no username), ya que el login es por email.
 > - Las traducciones (`locale/es/`) ya vienen compiladas en el repo (`django.mo`). Si editas `django.po`, recompila con `python manage.py compilemessages` (requiere `gettext` instalado).
+
+## Tests
+
+```bash
+python manage.py test
+```
+
+Los tests unitarios cubren users, profiles, posts y notifications, y se ejecutan contra una base de datos de prueba desechable (no tocan `db.sqlite3`).
 
 ## Variables de entorno (opcionales)
 
