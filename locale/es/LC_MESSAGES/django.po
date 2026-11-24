@@ -322,3 +322,6 @@ msgstr "Publicación actualizada correctamente."
 
 msgid "Post deleted."
 msgstr "Publicación eliminada."
+
+msgid "Menu"
+msgstr "Menú"

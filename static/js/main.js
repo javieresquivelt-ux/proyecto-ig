@@ -68,4 +68,21 @@
             }
         }).catch(function () {});
     });
+
+    document.addEventListener('click', function (e) {
+        var burger = e.target.closest('.hamburger');
+        if (burger) {
+            var header = burger.closest('.header');
+            header.classList.toggle('nav-open');
+            burger.setAttribute('aria-expanded', header.classList.contains('nav-open'));
+            return;
+        }
+        var link = e.target.closest('.header__menu a');
+        if (link) {
+            var h = link.closest('.header');
+            h.classList.remove('nav-open');
+            var b = h.querySelector('.hamburger');
+            if (b) b.setAttribute('aria-expanded', 'false');
+        }
+    });
 })();
