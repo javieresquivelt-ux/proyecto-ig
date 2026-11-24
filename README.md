@@ -28,23 +28,24 @@ flowchart TB
     Browser["Navegador<br/>(HTML + Bootstrap 5 + JS/AJAX)"]
 
     subgraph VPS["VPS Hostinger · Ubuntu 24.04"]
-        Gunicorn["Gunicorn (WSGI)<br/>puerto 8000 · 3 workers"]
-
-        subgraph Django["Django 6.1"]
-            Apps["Apps: users · profiles · posts · notifications"]
-            Templates["Templates + crispy-forms + i18n (EN/ES)"]
+        subgraph Env["env/ · entorno virtual (Python + dependencias)"]
+            Gunicorn["Gunicorn (WSGI)<br/>puerto 8000 · 3 workers"]
+            subgraph Django["Django 6.1"]
+                Apps["Apps: users · profiles · posts · notifications"]
+                Templates["Templates + crispy-forms + i18n (EN/ES)"]
+            end
         end
 
         SQLite[("SQLite<br/>(db.sqlite3)")]
-        Static["Estáticos: whitenoise<br/>(collectstatic)"]
-        Media["Media: imágenes subidas<br/>(posts / perfiles)"]
+        Static["Estáticos (whitenoise)<br/>staticfiles/"]
+        Media["Media (imágenes)<br/>media/"]
     end
 
     Browser -- "HTTP :8000" --> Gunicorn
     Gunicorn --> Django
     Django --> SQLite
-    Django -- "sirve" --> Static
-    Django -- "sirve" --> Media
+    Django -- "collectstatic" --> Static
+    Django -- "sube/lee" --> Media
     Static -- "CSS/JS" --> Browser
     Media -- "imágenes" --> Browser
 ```
