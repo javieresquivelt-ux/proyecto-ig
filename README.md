@@ -136,7 +136,7 @@ erDiagram
 - Botón Follow junto al autor en posts y comentarios (solo "Follow"; el "Unfollow" queda en Users/perfil público).
 - Página de aviso legal y formulario de contacto (Name, Email, Subject, Message).
 - Internacionalización EN/ES con selector de idioma en el header.
-- Diseño responsivo (adaptable a móvil/tablet).
+- Diseño responsivo con menú hamburguesa en móvil.
 - Mensajes flash de Django renderizados en el layout.
 
 > Crear superusuario: `python manage.py createsuperuser` (pide **email**, no username).
@@ -173,6 +173,8 @@ Los tests unitarios cubren users, profiles, posts y notifications, y se ejecutan
 - **Acceso:** `http://<dominio>:8000` o `http://<IP>:8000`.
 
 > Limitaciones: el acceso es HTTP plano (sin TLS). Los archivos `media/` (imágenes subidas) se sirven mediante Django (`django.views.static.serve`), válido para un proyecto educativo de bajo tráfico.
+
+> Al actualizar estáticos en producción: tras `git pull`, ejecuta `python manage.py collectstatic --clear --noinput` y reinicia el servicio (whitenoise sirve desde `staticfiles/`).
 
 ## Variables de entorno (opcionales)
 
